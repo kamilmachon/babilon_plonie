@@ -69,26 +69,26 @@ def smallest_neighbour_for_cost_matrix(y,x, board):
 def smallest_neighbour_for_iteration(y,x, board, board2):
     k = 999
     coords = [0,0]
-    if board[y-1][x] > 0 and board[y-1][x]< k and board2[y-1][x] == 0:
+    if board[y-1][x] > 0 and board[y-1][x]< k and int(board2[y-1][x]) == 0:
         k = board[y-1][x]
         coords = [y-1,x]
 
-    if board[y-1][x+1] > 0 and board[y-1][x+1]< k and board2[y-1][x-1] == 0:
+    if board[y-1][x+1] > 0 and board[y-1][x+1]< k and int(board2[y-1][x-1]) == 0:
         k = board[y-1][x+1]
         coords = [y-1, x+1]
 
-    if  board[y][x-1] > 0 and board[y][x-1]< k and board2[y][x-1] == 0:
+    if  board[y][x-1] > 0 and board[y][x-1]< k and int(board2[y][x-1]) == 0:
         k = board[y][x-1]
         coords = [y, x-1]
 
-    if board[y][x+1] > 0 and board[y][x+1]< k and board2[y][x+1] == 0:
+    if board[y][x+1] > 0 and board[y][x+1]< k and int(board2[y][x+1]) == 0:
         k = board[y][x+1]
         coords = [y, x+1]
-    if board[y+1][x] > 0 and board[y+1][x]< k and board2[y+1][x] == 0:
+    if board[y+1][x] > 0 and board[y+1][x]< k and int(board2[y+1][x]) == 0:
         k = board[y+1][x]
         coords = [y+1,x]
 
-    if board[y+1][x+1] >0 and board[y+1][x+1]<k and board2[y+1][x+1] == 0:
+    if board[y+1][x+1] >0 and board[y+1][x+1]<k and int(board2[y+1][x+1]) == 0:
         k = board[y+1][x+1]
         coords = [y+1, x+1]
 
@@ -122,7 +122,7 @@ def calculate_distance_matrix(board, exit):
             board[P[0]+1][P[1]] = smallest_neighbour_for_cost_matrix(P[0]+1, P[1], board)+1
 
         # print '============================================'
-        # # sleep(0.5)
+        # sleep(0.5)
         # print board
         # print 'stack length:   ', len(stack)
 
@@ -142,13 +142,14 @@ def iterate(board, cost_matrix):
 
     for i in range(0, len(arr)):
         coords = smallest_neighbour_for_iteration(int(arr[i][0]), int(arr[i][1]), cost_matrix, board)
-        if coords != [0,0]:
+        print coords
+        if coords != [0,0] and board[coords[0]][coords[1]] != -8:
             board[int(arr[i][0])][int(arr[i][1])] = 0
             board[coords[0]][coords[1]] = -8
 
         #debug
-        print board
-        sleep(0.4)
+        # print board
+        # sleep(0.4)
 
     print len(arr), ' dwellers left.'
 
